@@ -1,0 +1,40 @@
+{
+    "name": "done6666/paytr-sdk",
+    "description": "Framework bağımsız PayTR ödeme altyapısı PHP SDK",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["paytr", "payment", "odeme", "turkey", "iframe", "api"],
+    "authors": [
+        {
+            "name": "done6666",
+            "homepage": "https://github.com/done6666"
+        }
+    ],
+    "require": {
+        "php": "^8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "guzzlehttp/guzzle": "^7.8"
+    },
+    "suggest": {
+        "guzzlehttp/guzzle": "^7.8 - HTTP istekleri için Done\\PayTR\\Adapters\\GuzzleHttpClient kullanmak isterseniz"
+    },
+    "autoload": {
+        "psr-4": {
+            "Done\\PayTR\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Done\\PayTR\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "minimum-stability": "stable"
+}
