@@ -41,7 +41,13 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Install dependencies
+        if: matrix.php != '8.0'
         run: composer install --no-interaction --prefer-dist
+
+      # composer.lock PHP >=8.1 ile üretilmiştir; PHP 8.0 için uyumlu set taze çözülür
+      - name: Install dependencies (resolve fresh for PHP 8.0)
+        if: matrix.php == '8.0'
+        run: composer update --no-interaction --prefer-dist --no-progress
 
       - name: Validate Composer
         run: composer validate --strict
