@@ -1,0 +1,403 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Method Done\\PayTR\\Adapters\\GuzzleHttpClient\:\:post\(\) has parameter \$body with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Adapters/GuzzleHttpClient.php
+
+		-
+			message: '#^Method Done\\PayTR\\Adapters\\GuzzleHttpClient\:\:post\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Adapters/GuzzleHttpClient.php
+
+		-
+			message: '#^Method Done\\PayTR\\Adapters\\GuzzleHttpClientResponse\:\:getJson\(\) should return array\<string, mixed\>\|null but returns array\<mixed, mixed\>\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Adapters/GuzzleHttpClientResponse.php
+
+		-
+			message: '#^Method Done\\PayTR\\Contracts\\HttpClient\:\:post\(\) has parameter \$body with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/HttpClient.php
+
+		-
+			message: '#^Method Done\\PayTR\\Contracts\\HttpClient\:\:post\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/HttpClient.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 2
+			path: src/DTO/Response/BinDetailResponse.php
+
+		-
+			message: '#^Possibly invalid array key type mixed\.$#'
+			identifier: offsetAccess.invalidOffset
+			count: 4
+			path: src/DTO/Response/BinDetailResponse.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between mixed and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: src/DTO/Response/BinDetailResponse.php
+
+		-
+			message: '#^Parameter \$currency of class Done\\PayTR\\DTO\\Response\\CallbackPayload constructor expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DTO/Response/CallbackPayload.php
+
+		-
+			message: '#^Parameter \$failedReasonCode of class Done\\PayTR\\DTO\\Response\\CallbackPayload constructor expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DTO/Response/CallbackPayload.php
+
+		-
+			message: '#^Parameter \$failedReasonMsg of class Done\\PayTR\\DTO\\Response\\CallbackPayload constructor expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DTO/Response/CallbackPayload.php
+
+		-
+			message: '#^Parameter \$hash of class Done\\PayTR\\DTO\\Response\\CallbackPayload constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DTO/Response/CallbackPayload.php
+
+		-
+			message: '#^Parameter \$merchantOid of class Done\\PayTR\\DTO\\Response\\CallbackPayload constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DTO/Response/CallbackPayload.php
+
+		-
+			message: '#^Parameter \$paymentAmount of class Done\\PayTR\\DTO\\Response\\CallbackPayload constructor expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DTO/Response/CallbackPayload.php
+
+		-
+			message: '#^Parameter \$paymentType of class Done\\PayTR\\DTO\\Response\\CallbackPayload constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DTO/Response/CallbackPayload.php
+
+		-
+			message: '#^Parameter \$status of class Done\\PayTR\\DTO\\Response\\CallbackPayload constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DTO/Response/CallbackPayload.php
+
+		-
+			message: '#^Parameter \$testMode of class Done\\PayTR\\DTO\\Response\\CallbackPayload constructor expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DTO/Response/CallbackPayload.php
+
+		-
+			message: '#^Parameter \$totalAmount of class Done\\PayTR\\DTO\\Response\\CallbackPayload constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DTO/Response/CallbackPayload.php
+
+		-
+			message: '#^Possibly invalid array key type mixed\.$#'
+			identifier: offsetAccess.invalidOffset
+			count: 4
+			path: src/DTO/Response/CallbackPayload.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between string and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: src/DTO/Response/CallbackPayload.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 2
+			path: src/DTO/Response/CardStorage/DeleteCardResponse.php
+
+		-
+			message: '#^Call to function is_array\(\) with array\<int\|string, mixed\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: src/DTO/Response/CardStorage/ListCardsResponse.php
+
+		-
+			message: '#^Call to function is_array\(\) with array\<mixed\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: src/DTO/Response/CardStorage/ListCardsResponse.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 2
+			path: src/DTO/Response/CardStorage/ListCardsResponse.php
+
+		-
+			message: '#^Parameter \#1 \$data of static method Done\\PayTR\\DTO\\Response\\CardStorage\\ListCardsResponseItem\:\:fromArray\(\) expects array\<string, mixed\>, array\<mixed, mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DTO/Response/CardStorage/ListCardsResponse.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: src/DTO/Response/CardStorage/ListCardsResponseItem.php
+
+		-
+			message: '#^Parameter \#1 \$ctoken of class Done\\PayTR\\DTO\\Response\\CardStorage\\ListCardsResponseItem constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DTO/Response/CardStorage/ListCardsResponseItem.php
+
+		-
+			message: '#^Parameter \#10 \$businessCard of class Done\\PayTR\\DTO\\Response\\CardStorage\\ListCardsResponseItem constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DTO/Response/CardStorage/ListCardsResponseItem.php
+
+		-
+			message: '#^Parameter \#11 \$initial of class Done\\PayTR\\DTO\\Response\\CardStorage\\ListCardsResponseItem constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DTO/Response/CardStorage/ListCardsResponseItem.php
+
+		-
+			message: '#^Parameter \#12 \$schema of class Done\\PayTR\\DTO\\Response\\CardStorage\\ListCardsResponseItem constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DTO/Response/CardStorage/ListCardsResponseItem.php
+
+		-
+			message: '#^Parameter \#2 \$last4 of class Done\\PayTR\\DTO\\Response\\CardStorage\\ListCardsResponseItem constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DTO/Response/CardStorage/ListCardsResponseItem.php
+
+		-
+			message: '#^Parameter \#3 \$requireCvv of class Done\\PayTR\\DTO\\Response\\CardStorage\\ListCardsResponseItem constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DTO/Response/CardStorage/ListCardsResponseItem.php
+
+		-
+			message: '#^Parameter \#4 \$month of class Done\\PayTR\\DTO\\Response\\CardStorage\\ListCardsResponseItem constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DTO/Response/CardStorage/ListCardsResponseItem.php
+
+		-
+			message: '#^Parameter \#5 \$year of class Done\\PayTR\\DTO\\Response\\CardStorage\\ListCardsResponseItem constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DTO/Response/CardStorage/ListCardsResponseItem.php
+
+		-
+			message: '#^Parameter \#6 \$cBank of class Done\\PayTR\\DTO\\Response\\CardStorage\\ListCardsResponseItem constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DTO/Response/CardStorage/ListCardsResponseItem.php
+
+		-
+			message: '#^Parameter \#7 \$cName of class Done\\PayTR\\DTO\\Response\\CardStorage\\ListCardsResponseItem constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DTO/Response/CardStorage/ListCardsResponseItem.php
+
+		-
+			message: '#^Parameter \#8 \$cBrand of class Done\\PayTR\\DTO\\Response\\CardStorage\\ListCardsResponseItem constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DTO/Response/CardStorage/ListCardsResponseItem.php
+
+		-
+			message: '#^Parameter \#9 \$cType of class Done\\PayTR\\DTO\\Response\\CardStorage\\ListCardsResponseItem constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DTO/Response/CardStorage/ListCardsResponseItem.php
+
+		-
+			message: '#^Possibly invalid array key type mixed\.$#'
+			identifier: offsetAccess.invalidOffset
+			count: 3
+			path: src/DTO/Response/CardStorage/ListCardsResponseItem.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between mixed and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: src/DTO/Response/CardStorage/ListCardsResponseItem.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 2
+			path: src/DTO/Response/CardStorage/RecurringPaymentResponse.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 4
+			path: src/DTO/Response/DirectPaymentResponse.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 3
+			path: src/DTO/Response/IframeTokenResponse.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: src/DTO/Response/InstallmentRatesResponse.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 3
+			path: src/DTO/Response/InstallmentRatesResponse.php
+
+		-
+			message: '#^Method Done\\PayTR\\DTO\\Response\\InstallmentRatesResponse\:\:__construct\(\) has parameter \$oranlar with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/DTO/Response/InstallmentRatesResponse.php
+
+		-
+			message: '#^Property Done\\PayTR\\DTO\\Response\\InstallmentRatesResponse\:\:\$oranlar \(array\<string, mixed\>\) does not accept array\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/DTO/Response/InstallmentRatesResponse.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 2
+			path: src/DTO/Response/QueryResponse.php
+
+		-
+			message: '#^Method Done\\PayTR\\DTO\\Response\\QueryResponse\:\:__construct\(\) has parameter \$returns with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/DTO/Response/QueryResponse.php
+
+		-
+			message: '#^Method Done\\PayTR\\DTO\\Response\\QueryResponse\:\:__construct\(\) has parameter \$submerchantPayments with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/DTO/Response/QueryResponse.php
+
+		-
+			message: '#^PHPDoc tag @param references unknown parameter\: \$data$#'
+			identifier: parameter.notFound
+			count: 1
+			path: src/DTO/Response/QueryResponse.php
+
+		-
+			message: '#^Property Done\\PayTR\\DTO\\Response\\QueryResponse\:\:\$returns \(list\<array\<string, mixed\>\>\) does not accept array\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/DTO/Response/QueryResponse.php
+
+		-
+			message: '#^Property Done\\PayTR\\DTO\\Response\\QueryResponse\:\:\$submerchantPayments \(list\<array\<string, mixed\>\>\) does not accept array\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/DTO/Response/QueryResponse.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: src/DTO/Response/RefundResponse.php
+
+		-
+			message: '#^PHPDoc tag @param references unknown parameter\: \$data$#'
+			identifier: parameter.notFound
+			count: 1
+			path: src/DTO/Response/RefundResponse.php
+
+		-
+			message: '#^Method Done\\PayTR\\Exceptions\\ApiException\:\:__construct\(\) has parameter \$payload with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Exceptions/ApiException.php
+
+		-
+			message: '#^Property Done\\PayTR\\Exceptions\\ApiException\:\:\$payload \(array\<string, mixed\>\) does not accept array\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/Exceptions/ApiException.php
+
+		-
+			message: '#^Property Done\\PayTR\\Request\\CardStorage\\AddCardRequest\:\:\$testMode is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: src/Request/CardStorage/AddCardRequest.php
+
+		-
+			message: '#^Property Done\\PayTR\\Request\\CardStorage\\PayWithRegisteredCardRequest\:\:\$testMode is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: src/Request/CardStorage/PayWithRegisteredCardRequest.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between non\-empty\-string and '''' will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: src/Request/CardStorage/PayWithRegisteredCardRequest.php
+
+		-
+			message: '#^Property Done\\PayTR\\Request\\CardStorage\\RecurringPaymentRequest\:\:\$testMode is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: src/Request/CardStorage/RecurringPaymentRequest.php
+
+		-
+			message: '#^Property Done\\PayTR\\Request\\Direct\\BinLookupRequest\:\:\$binNumber \(string\) does not accept string\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/Request/Direct/BinLookupRequest.php
+
+		-
+			message: '#^Call to function is_array\(\) with array\<string, mixed\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 4
+			path: src/Resources/CardStorage.php
+
+		-
+			message: '#^Parameter \#1 \$data of static method Done\\PayTR\\DTO\\Response\\CardStorage\\ListCardsResponse\:\:fromParsedResponse\(\) expects array\<int\|string, mixed\>, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Resources/CardStorage.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between non\-empty\-string and '''' will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: src/Resources/CardStorage.php
+
+		-
+			message: '#^Property Done\\PayTR\\Resources\\Iframe\:\:\$config is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: src/Resources/Iframe.php
+
+		-
+			message: '#^Parameter \#1 \$string of function base64_encode expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Util/UserBasket.php
