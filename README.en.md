@@ -6,7 +6,6 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/done6666/paytr-sdk)](https://packagist.org/packages/done6666/paytr-sdk)
 [![PHP from Packagist](https://img.shields.io/packagist/php-v/done6666/paytr-sdk)](https://packagist.org/packages/done6666/paytr-sdk)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![codecov](https://codecov.io/gh/done6666/paytr-sdk/graph/badge.svg)](https://codecov.io/gh/done6666/paytr-sdk)
 
 [**Türkçe**](README.md) | **English**
 

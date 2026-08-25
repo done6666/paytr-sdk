@@ -10,7 +10,6 @@ jobs:
   phpstan:
     runs-on: ubuntu-latest
     name: PHPStan
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
 
@@ -28,4 +27,4 @@ jobs:
           curl -fsSL -o phpstan.phar https://github.com/phpstan/phpstan/releases/latest/download/phpstan.phar
 
       - name: Run PHPStan
-        run: php phpstan.phar analyse --level=max --no-progress --memory-limit=1G src
+        run: php phpstan.phar analyse -c phpstan.neon --no-progress --memory-limit=1G
