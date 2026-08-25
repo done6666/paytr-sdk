@@ -3,7 +3,19 @@
     "description": "Framework bağımsız PayTR ödeme altyapısı PHP SDK",
     "type": "library",
     "license": "MIT",
-    "keywords": ["paytr", "payment", "odeme", "turkey", "iframe", "api"],
+    "homepage": "https://github.com/done6666/paytr-sdk",
+    "keywords": [
+        "paytr",
+        "payment",
+        "payment-gateway",
+        "odeme",
+        "sanal-pos",
+        "kredi-karti",
+        "turkey",
+        "iframe",
+        "api",
+        "callback"
+    ],
     "authors": [
         {
             "name": "done6666",

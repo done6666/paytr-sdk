@@ -2,7 +2,7 @@
 
 Tüm önemli değişiklikler bu dosyada listelenir.
 
-## [Unreleased]
+## [1.1.0] - 2026-08-25
 
 ### Kart Saklama API (CAPI) tamamlama
 
@@ -27,4 +27,5 @@ Tüm önemli değişiklikler bu dosyada listelenir.
 - Türkçe README, örnek kullanım ve idempotency önerisi.
 - CI: `composer validate` + `phpunit` (`.github/workflows/ci.yml`).
 
-[1.0.0]: https://github.com/done6666/paytr-sdk/releases/tag/1.0.0
+[1.0.0]: https://github.com/done6666/paytr-sdk/releases/tag/v1.0.0
+[1.1.0]: https://github.com/done6666/paytr-sdk/releases/tag/v1.1.0

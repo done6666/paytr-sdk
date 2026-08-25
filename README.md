@@ -1,5 +1,15 @@
 # done6666/paytr-sdk
 
+[![CI](https://github.com/done6666/paytr-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/done6666/paytr-sdk/actions/workflows/ci.yml)
+[![Static Analysis](https://github.com/done6666/paytr-sdk/actions/workflows/static-analysis.yml/badge.svg)](https://github.com/done6666/paytr-sdk/actions/workflows/static-analysis.yml)
+[![Latest Stable Version](https://img.shields.io/packagist/v/done6666/paytr-sdk)](https://packagist.org/packages/done6666/paytr-sdk)
+[![Total Downloads](https://img.shields.io/packagist/dt/done6666/paytr-sdk)](https://packagist.org/packages/done6666/paytr-sdk)
+[![PHP from Packagist](https://img.shields.io/packagist/php-v/done6666/paytr-sdk)](https://packagist.org/packages/done6666/paytr-sdk)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![codecov](https://codecov.io/gh/done6666/paytr-sdk/graph/badge.svg)](https://codecov.io/gh/done6666/paytr-sdk)
+
+**Türkçe** | [English](README.en.md)
+
 PayTR ödeme altyapısı için framework bağımsız PHP SDK. **PSR-4**, **PSR-12**, **PHP 8.0+**.
 
 * Iframe (Token + iframe URL)
@@ -8,6 +18,36 @@ PayTR ödeme altyapısı için framework bağımsız PHP SDK. **PSR-4**, **PSR-1
 * Callback doğrulama (Iframe + Direkt API + CAPI ortak bildirim)
 * Durum sorgulama
 * İade
+
+## Neden bu SDK?
+
+- **Framework bağımsız** — Laravel, Symfony veya düz PHP; hiçbirine bağımlılık zorunluluğu yok.
+- **Değiştirilebilir HTTP katmanı** — Guzzle adapter hazır; `Contracts\HttpClient` arayüzüyle kendi client'ınızı bağlayın.
+- **Tip güvenli ve fluent** — Request/Model sınıflarıyla IDE autocomplete dostu, doğrulanabilir istekler.
+- **Hash/signature karmaşası yok** — PayTR'nin tüm imza formülleri SDK içinde; callback doğrulaması tek satır.
+- **Test edilebilir** — `FakeHttpClient` ile gerçek API çağrısı yapmadan test; %100 CI kapsamında geliştirilir.
+- **Kuruş/TL dönüşümü dahili** — `setAmountFromTL('34.56')` → `3456` kuruş; en klasik entegrasyon hatasını engeller.
+
+## İçindekiler
+
+- [Kurulum](#kurulum)
+- [Hızlı Başlangıç](#hızlı-başlangıç)
+- [Framework Entegrasyonu](#framework-entegrasyonu)
+- [Önemli Notlar](#önemli-notlar)
+- [Desteklenen Entegrasyonlar](#desteklenen-entegrasyonlar)
+- [1) Iframe ile ödeme başlatma (token)](#1-iframe-ile-ödeme-başlatma-token)
+- [1b) Direkt API](#1b-direkt-api)
+- [1c) Kart Saklama API (CAPI)](#1c-kart-saklama-api-capi)
+- [2) Bildirim URL (Callback) doğrulama](#2-bildirim-url-callback-doğrulama)
+- [3) Durum sorgulama](#3-durum-sorgulama)
+- [4) İade](#4-iade)
+- [Hata Yönetimi](#hata-yönetimi)
+- [Geriye Dönük Uyumluluk](#geriye-dönük-uyumluluk)
+- [Örnekler](#örnekler)
+- [Test](#test)
+- [Katkı](#katkı)
+- [Güvenlik](#güvenlik)
+- [Lisans](#lisans)
 
 ---
 
@@ -27,7 +67,7 @@ composer require guzzlehttp/guzzle
 
 ## Hızlı Başlangıç
 
-Önerilen kurulum `Options` ile yapılır. (`Options` fluent builder’dır; ileri kullanımda `Config` de kullanılabilir.)
+Önerilen kurulum `Options` ile yapılır. (`Options` fluent builder'dır; ileri kullanımda `Config` de kullanılabilir.)
 
 ```php
 use Done\PayTR\Options;
@@ -43,7 +83,70 @@ $options = (new Options())
 $client = new Client($options, GuzzleHttpClient::default());
 ```
 
-Kendi HTTP client’ınız için `Done\PayTR\Contracts\HttpClient` arayüzünü implement edebilirsiniz.
+Kendi HTTP client'ınız için `Done\PayTR\Contracts\HttpClient` arayüzünü implement edebilirsiniz.
+
+---
+
+## Framework Entegrasyonu
+
+### Laravel
+
+`config/services.php`:
+
+```php
+'paytr' => [
+    'merchant_id'  => env('PAYTR_MERCHANT_ID'),
+    'merchant_key' => env('PAYTR_MERCHANT_KEY'),
+    'merchant_salt'=> env('PAYTR_MERCHANT_SALT'),
+],
+```
+
+`AppServiceProvider@register` içinde singleton olarak kaydedin:
+
+```php
+use Done\PayTR\Client;
+use Done\PayTR\Adapters\GuzzleHttpClient;
+use Done\PayTR\Options;
+
+$this->app->singleton(Client::class, function () {
+    $options = (new Options())
+        ->setMerchantId(config('services.paytr.merchant_id'))
+        ->setMerchantKey(config('services.paytr.merchant_key'))
+        ->setMerchantSalt(config('services.paytr.merchant_salt'));
+
+    return new Client($options, GuzzleHttpClient::default());
+});
+```
+
+Controller'da method injection ile kullanın:
+
+```php
+public function pay(Request $request, Client $paytr)
+{
+    // $paytr->iframe()->createToken(...)
+}
+```
+
+### Symfony
+
+`config/services.yaml`:
+
+```yaml
+Done\PayTR\Options:
+    class: Done\PayTR\Options
+    calls:
+        - setMerchantId: ['%env(PAYTR_MERCHANT_ID)%']
+        - setMerchantKey: ['%env(PAYTR_MERCHANT_KEY)%']
+        - setMerchantSalt: ['%env(PAYTR_MERCHANT_SALT)%']
+
+Done\PayTR\Adapters\GuzzleHttpClient:
+    factory: ['Done\PayTR\Adapters\GuzzleHttpClient', 'default']
+
+Done\PayTR\Client:
+    arguments:
+        $configOrOptions: '@Done\PayTR\Options'
+        $httpClient: '@Done\PayTR\Adapters\GuzzleHttpClient'
+```
 
 ---
 
@@ -51,19 +154,19 @@ Kendi HTTP client’ınız için `Done\PayTR\Contracts\HttpClient` arayüzünü 
 
 ### 1) user_ip (kritik)
 
-Direkt API / Kart Saklama API çağrılarında `user_ip` alanı **mutlaka gerçek müşteri IP’si** olmalıdır.
-Örneğin reverse proxy arkasındaysanız doğru header’dan almayı unutmayın.
+Direkt API / Kart Saklama API çağrılarında `user_ip` alanı **mutlaka gerçek müşteri IP'si** olmalıdır.
+Örneğin reverse proxy arkasındaysanız doğru header'dan almayı unutmayın.
 
 ### 2) Idempotency (kritik)
 
 PayTR bildirimleri (callback) aynı `merchant_oid` için birden fazla kez gelebilir. Siparişinizi **idempotent** işleyin:
 
-* Sipariş daha önce “paid/failed” durumuna alınmışsa tekrar işlemeyin.
-* Önce DB’de sipariş durumunu kontrol edin.
+* Sipariş daha önce "paid/failed" durumuna alınmışsa tekrar işlemeyin.
+* Önce DB'de sipariş durumunu kontrol edin.
 
 ### 3) sync_mode farkı
 
-* **sync_mode=0 (varsayılan):** SDK payload üretir, siz HTML form ile PayTR’ye POST edersiniz.
+* **sync_mode=0 (varsayılan):** SDK payload üretir, siz HTML form ile PayTR'ye POST edersiniz.
 * **sync_mode=1:** SDK HTTP çağrısını kendi yapar (JSON yanıt alırsınız). Bunun için mağazada ilgili yetkilerin açık olması gerekir.
 
 ### 4) Kart verisi güvenliği
@@ -104,10 +207,10 @@ Ham kart numarası / CVV / tam kart bilgisini:
 
 ## 1) Iframe ile ödeme başlatma (token)
 
-`Buyer`, `Basket`, `CreateTokenRequest` ile token alıp iframe URL’i üretin.
+`Buyer`, `Basket`, `CreateTokenRequest` ile token alıp iframe URL'i üretin.
 
 > PayTR `payment_amount` alanını **kuruş** bazlı kullanır.
-> SDK’da:
+> SDK'da:
 >
 > * `setAmountFromTL('34.56')` → SDK 3456 olarak gönderir
 > * direkt kuruş için `setAmountKurus(3456)`
@@ -159,7 +262,7 @@ HTML iframe:
 
 ## 1b) Direkt API
 
-Direkt API’de ödeme formu sizin sunucunuzdadır; kart bilgileri PayTR’ye gönderilir.
+Direkt API'de ödeme formu sizin sunucunuzdadır; kart bilgileri PayTR'ye gönderilir.
 
 ### Akışlar
 
@@ -167,7 +270,7 @@ Direkt API’de ödeme formu sizin sunucunuzdadır; kart bilgileri PayTR’ye g�
 
   * `$request->toPayload($options)` ile payload alırsınız.
   * Kendi HTML formunuzdan `https://www.paytr.com/odeme` adresine POST edersiniz.
-  * Sonuç, PayTR’nin yönlendirdiği `merchant_ok_url` / `merchant_fail_url` sayfalarında görülür.
+  * Sonuç, PayTR'nin yönlendirdiği `merchant_ok_url` / `merchant_fail_url` sayfalarında görülür.
 * **sync_mode=1**
 
   * SDK `createPayment()` ile POST atar.
@@ -245,7 +348,7 @@ if ($taksitResult->isSuccess()) {
 
 ## 1c) Kart Saklama API (CAPI)
 
-Kart Saklama ile kullanıcıların kartlarını PayTR’de saklayabilir; kayıtlı karttan ödeme alabilir, listeleyebilir, silebilir ve tekrarlayan ödeme yapabilirsiniz.
+Kart Saklama ile kullanıcıların kartlarını PayTR'de saklayabilir; kayıtlı karttan ödeme alabilir, listeleyebilir, silebilir ve tekrarlayan ödeme yapabilirsiniz.
 
 Erişim:
 
@@ -263,14 +366,14 @@ $client->cardStorage();
   Token formülü Direkt API ile aynıdır:
   `merchant_id + user_ip + merchant_oid + email + payment_amount + payment_type + installment_count + currency + test_mode + non_3d + merchant_salt`
 
-> Tekrarlayan ödemede `recurring_payment` alanı token string’ine dahil edilmez.
+> Tekrarlayan ödemede `recurring_payment` alanı token string'ine dahil edilmez.
 
 ---
 
 ### a) Yeni kart ekleme (ödeme sırasında) — `store_card=1`
 
 İlk kartta `utoken` göndermeyin; PayTR **callback** üzerinden `utoken/ctoken` döner.
-Aynı kullanıcıya yeni kart eklerken mevcut `utoken`’ı gönderin.
+Aynı kullanıcıya yeni kart eklerken mevcut `utoken`'ı gönderin.
 
 ```php
 use Done\PayTR\Request\CardStorage\AddCardRequest;
@@ -313,7 +416,7 @@ foreach ($listResp->cards as $kart) {
 
 ### c) Kayıtlı karttan ödeme
 
-CAPI LIST’ten gelen `require_cvv=1` ise kullanıcıdan CVV alıp gönderin.
+CAPI LIST'ten gelen `require_cvv=1` ise kullanıcıdan CVV alıp gönderin.
 
 ```php
 use Done\PayTR\Request\CardStorage\PayWithRegisteredCardRequest;
@@ -393,7 +496,7 @@ Zorunlu alanlar:
 * `hash`
 
 > Yanıt olarak **yalnızca** düz metin `OK` yazdırın.
-> Öncesinde/sonrasında HTML veya ekstra çıktı olmamalı.
+> Öncesinde/sonrasında HTML veya ekstra çıktı olmamalıdır.
 
 ```php
 use Done\PayTR\Exceptions\SignatureException;
@@ -468,6 +571,17 @@ Eski DTO tabanlı API çalışmaya devam eder; yeni kod için Request/Model stil
 
 ---
 
+## Örnekler
+
+Kopyala-yapıştır çalıştırılabilir senaryolar [`examples/`](examples/) klasöründe:
+
+* [`iframe-payment.php`](examples/iframe-payment.php) — Iframe token üretimi
+* [`direct-payment.php`](examples/direct-payment.php) — Direkt API (Non3D, sync)
+* [`callback.php`](examples/callback.php) — Bildirim URL endpoint'i
+* [`recurring-payment.php`](examples/recurring-payment.php) — Kayıtlı kartla tekrarlayan ödeme
+
+---
+
 ## Test
 
 ```bash
@@ -478,6 +592,14 @@ composer test
 Gerçek PayTR çağrısı yapılmaz; testler `FakeHttpClient` ile çalışır.
 
 ---
+
+## Katkı
+
+Katkılarınızı bekliyoruz! Lütfen önce [CONTRIBUTING.md](CONTRIBUTING.md) dosyasını okuyun.
+
+## Güvenlik
+
+Güvenlik açığı bildirimleri için lütfen public issue açmayın; [SECURITY.md](SECURITY.md) dosyasındaki süreci izleyin.
 
 ## Lisans
 
@@ -494,4 +616,3 @@ MIT. Bkz. `LICENSE`.
 * iFrame API 2. Adım (Bildirim URL): [https://dev.paytr.com/iframe-api/iframe-api-2-adim](https://dev.paytr.com/iframe-api/iframe-api-2-adim)
 * Durum Sorgu API: [https://dev.paytr.com/durum-sorgu](https://dev.paytr.com/durum-sorgu)
 * İade API: [https://dev.paytr.com/iade-api](https://dev.paytr.com/iade-api)
-
